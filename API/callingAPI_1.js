@@ -19,3 +19,16 @@ async function getweather() {
 getweather();
 
 
+// sanding data to an API (post request)
+async function createUser(userData) {
+    const response =await fetch('https://api.example.com/users', {
+        method : 'POST',
+        headers: {
+            'Content-type' : 'application/json',//tell API you're sending JSON
+            'Authorization':`Bearer ${YOUR_API_KEY}` // Auth token
+        },
+        body:JSON.stringify(userData)// convert js object to JSON string
+    });
+    return response.json();
+}
+createUser({name:'Arjun',email:'arjun@example.com'});

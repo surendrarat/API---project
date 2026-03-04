@@ -1,5 +1,6 @@
 // 3 way to call the API
 //fetch() 
+//this is the first way 
 
 async function getweather() {
     try {

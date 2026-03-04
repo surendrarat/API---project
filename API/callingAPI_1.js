@@ -32,3 +32,18 @@ async function createUser(userData) {
     return response.json();
 }
 createUser({name:'Arjun',email:'arjun@example.com'});
+
+// third way
+//Axios (npm library)
+//npm install axios - cleaner syntax , auto JSON parse
+
+import axios from 'axios';
+const getUser=async(id)=> {
+    const {data}=await axios.get(`hppts://api.example.com/users/${id}`, {
+        headers :{'Authorization': `Bearer ${TOKEN}`  }
+    });
+    console.log(data);
+};
+
+// Axios POST - auto stringfies the body!
+await axios.post('/users',{name:'Arjun'});

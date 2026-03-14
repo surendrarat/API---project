@@ -37,3 +37,12 @@ async function parallel() {
     // total: ~ 1 second (they run together!)
 }
 
+// returning values
+async function getTemperature(city) {
+    const res=await fetch (`/api/weather?city=${city}`)
+    const data = await res.json();
+    return data.temp; // returns a Promise that resolves to the temp number
+}   
+
+const temp = await getTemperature('jaipur');
+console.log(`Temperature: ${temp}°C`);

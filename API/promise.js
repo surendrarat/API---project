@@ -10,3 +10,20 @@ const myPromise=new Promise ((resolve,reject) => {
         reject (new Error("Something went wrong"));
     }
 } );
+
+// consuming a promise 
+myPromise
+.then(data =>{
+    console.log(data);//here's your data!
+    return data.toUpperCase();//can chian-returns new Promise
+
+})
+.then(upperData => {
+    console.log(upperData)//HERE's your data
+})
+.catch(err => {
+    console.error("Error:",err.message);// catches any error in the chain
+})
+.finally(()=>{
+    console.log("Always runs - success OR failure"); // Good for cleanup
+});

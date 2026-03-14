@@ -17,3 +17,23 @@ const fetchPosts=async () =>{
     );
     return res.json();
 };
+
+// important -
+// sequenitial vs  parallel 
+//sequential -total time =A+B (slower)
+async function sequential() {
+    const user = await fetchUser(); // Waits is
+    const posts =await fetchPosts(); // then waits is more
+    // total : ~2 seconds 
+}
+
+// paraller - total time =max (A,B)(faster!)
+
+async function parallel() {
+    const [user , posts] =await Promise.all([
+        fetchUser(),
+        fetchPosts()
+    ]);
+    // total: ~ 1 second (they run together!)
+}
+

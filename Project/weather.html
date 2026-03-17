@@ -157,28 +157,148 @@
         <header class="header" < div class="logo">SKY<span>Cast</span>
     </div>
     <div class="header-time" id="headerTime"></div>
-</header>
+    </header>
 
-<!-- UNIT TOGGLE -->
-<div class="unit-toggle">
-    <button class="unit-btn active" id="btnC" onclick="setUnit('C')">°C</button>
-    <button class="unit-btn" id="btnF" onclick="setUnit('F')">°F</button>
-</div>
-
-<!-- SEARCH -->
- <div class="search-warp">
-    <div class="search-box">
-        <input type="text" class="search-input" id="cityInput" placeholder="placeholder="Search any city — New York, Mumbai, London...""
-         autocomplete="off"
-         spellcheck="false"/>
-         
-         <button class="search-btn" id="searchBtn" onclick="handleSearch()">
-             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
-             Search
-         </button>
+    <!-- UNIT TOGGLE -->
+    <div class="unit-toggle">
+        <button class="unit-btn active" id="btnC" onclick="setUnit('C')">°C</button>
+        <button class="unit-btn" id="btnF" onclick="setUnit('F')">°F</button>
     </div>
- </div>
+
+    <!-- SEARCH -->
+    <div class="search-warp">
+        <div class="search-box">
+            <input type="text" class="search-input" id="cityInput" placeholder="placeholder=" Search any city — New
+                York, Mumbai, London..."" autocomplete="off" spellcheck="false" />
+
+            <button class="search-btn" id="searchBtn" onclick="handleSearch()">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                Search
+            </button>
+        </div>
+        <div class="recents" id="recents"></div>
+    </div>
+
+    <!-- STATE AREA -->
+    <div class="state-area" id="stateArea"></div>
+
+    <!-- IDLE -->
+    <div id="stateIdle" class="idle-state">
+        <div class="idle-icon">🌤</div>
+        <div class="idle-title">What's the weather like?</div>
+        <div class="idle-hint"> Search for any city in the world</div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="stateLoading" class="loading-state" style="display:none">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">Fetching weather data...</div>
+    </div>
+
+    <!-- ERROR -->
+    <div id="stateError" class="error-state" style="display:none">
+        <div class="error-icon">⚡</div>
+        <div class="error-title">Something went wrong</div>
+        <div class="error-msg" id="errorMsg">Could not fetch weather data.</div>
+        <button class="retry-btn" onclick="retryLast()">Try Again</button>
+    </div>
+    <!-- SUCCESS -->
+    <div id="stateSuccess" class="weather-card" style="display:none">
+        <!-- Main block -->
+        <div class="w-main">
+            <div class="w-left">
+                <div class="w-location">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span id="wCountry">—</span>
+                </div>
+                <div class="w-city" id="wCity">—</div>
+                <div class="w-time" id="wTime">—</div>
+                <div class="w-temp-row">
+                    <div class="w-temp" id="wTemp">—</div>
+                    <div class="w-unit" id="wUnitDisplay">°C</div>
+                </div>
+                <div class="w-desc" id="wDesc">—</div>
+                <div class="w-feels" id="wFeels">—</div>
+            </div>
+            <div class="w-icon-col">
+                <img class="w-icon" id="wIcon" src="" alt="weather icon" />
+                <div class="w-condition-badge" id="wCondition">—</div>
+            </div>
+        </div>
+        <!-- Stats -->
+        <div class="w-stats">
+            <div class="stat-card">
+                <div class="stat-icon">💧</div>
+                <div class="stat-label">Humidity</div>
+                <div class="stat-val" id="wHumidity">—</div>
+                <div class="stat-sub">Relative humidity</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💨</div>
+                <div class="stat-label">Wind Speed</div>
+                <div class="stat-val" id="wWind">—</div>
+                <div class="stat-sub" id="wWindDir">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-label">Visibility</div>
+                <div class="stat-val" id="wVis">—</div>
+                <div class="stat-sub">Clear view</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌡️</div>
+                <div class="stat-label">Pressure</div>
+                <div class="stat-val" id="wPressure">—</div>
+                <div class="stat-sub">Atmospheric</div>
+            </div>
+        </div>
+
+        <!-- Sun times -->
+        <div class="w-sun">
+            <div class="sun-card">
+                <div class="sun-icon">🌅</div>
+                <div>
+                    <div class="sun-label">Sunrise</div>
+                    <div class="sun-time" id="wSunrise">—</div>
+                </div>
+            </div>
+            <div class="sun-card">
+                <div class="sun-icon">🌇</div>
+                <div>
+                    <div class="sun-label">Sunset</div>
+                    <div class="sun-time" id="wSunset">—</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="attribution">
+    Data by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> &nbsp;·&nbsp;
+    Day 3 Project &nbsp;·&nbsp; API Mastery Course
+  </div>
 </div>
+
+<!-- API KEY NOTICE -->
+<div class="api-notice" id="apiNotice">
+  <span>⚡</span>
+  <span>Enter your <strong>OpenWeatherMap API key</strong> to activate live weather data:</span>
+  <input
+    class="api-key-input"
+    id="apiKeyInput"
+    type="password"
+    placeholder="Paste your API key here..."
+  />
+  <button class="api-key-save" onclick="saveKey()">Activate</button>
+  <button class="notice-dismiss" onclick="dismissNotice()" title="Dismiss">×</button>
+</div>
+
 </body>
 
 

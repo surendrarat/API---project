@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>weather</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+serif:ital@0;1&family=Plus+Jakarta
+    +Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sky-clear: #0ea5e9;
+            --sky-clouds: #64748b;
+            --sky-rain: #334155;
+            --sky-night: #1e1b4b;
+            --sky-storm: #1a1a2e;
+            --bg: #0f172a;
+            --surface: rgba(255, 255, 255, 0.05);
+            --surface2: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --muted2: #475569;
+            --accent: #38bdf8;
+            --green: #4ade80;
+            --yellow: #fbbf24;
+            --red: #f87171;
+            --card-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 1.2s ease;
+        }
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0c1120 100%);
+            transition: background 1.5s ease;
+        }
+
+        .bg-layer.clear {
+            background: linear-gradient(160deg, #0c4a6e 0%, #075985 40%, #0369a1 100%);
+        }
+
+        .bg-layer.clouds {
+            background: linear-gradient(160deg, #334155 0%, #475569 50%, #1e293b 100%);
+        }
+
+        .bg-layer.rain {
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 60%, #0c0f1a 100%);
+        }
+
+        .bg-layer.snow {
+            background: linear-gradient(160deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
+        }
+
+        .bg-layer.night {
+            background: linear-gradient(160deg, #020617 0%, #0f0c2e 50%, #1e1b4b 100%);
+        }
+
+        .bg-layer.storm {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh)translateX(0);
+            }
+
+            10% {
+                opacity: .6;
+            }
+
+            90% {
+                opacity: .3;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(20px);
+            }
+        }
+
+        .rain-drop {
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, rgba (147, 210, 253, 0.6));
+            animation: rain-fall linear infinite;
+            transform-origin: top;
+        }
+
+        @keyframes rain-fall {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) rotate(15deg);
+            }
+
+            5% {
+                opacity: .8;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(15deg);
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- Animated background -->
+    <div class="bg-layer" id="bgLayer"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="header" < div class="logo">SKY<span>Cast</span>
+    </div>
+    <div class="header-time" id="headerTime"></div>
+</header>
+
+<!-- UNIT TOGGLE -->
+<div class="unit-toggle">
+    <button class="unit-btn active" id="btnC" onclick="setUnit('C')">°C</button>
+    <button class="unit-btn" id="btnF" onclick="setUnit('F')">°F</button>
+</div>
+
+<!-- SEARCH -->
+ <div class="search-warp">
+    <div class="search-box">
+        <input type="text" class="search-input" id="cityInput" placeholder="placeholder="Search any city — New York, Mumbai, London...""
+         autocomplete="off"
+         spellcheck="false"/>
+         
+         <button class="search-btn" id="searchBtn" onclick="handleSearch()">
+             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+             Search
+         </button>
+    </div>
+ </div>
+</div>
+</body>
+
+
+</html>
